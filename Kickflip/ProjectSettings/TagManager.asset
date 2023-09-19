@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Floor
+  - Platform
+  - Kill Zone
+  - Driller
+  - Enemy
+  - Logic
   layers:
   - Default
   - TransparentFX
