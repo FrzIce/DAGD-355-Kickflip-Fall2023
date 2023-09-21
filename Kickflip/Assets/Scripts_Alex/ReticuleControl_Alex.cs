@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ReticuleControl_Alex : MonoBehaviour
 {
-    public Rigidbody2D rb;
     public Vector3 screenPosition;
     public Vector3 worldPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        
+         
     }
 
     // Update is called once per frame
@@ -22,6 +20,7 @@ public class ReticuleControl_Alex : MonoBehaviour
 
         worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
-        rb.transform.position = worldPosition;
+        transform.position = worldPosition;
+        transform.position += new Vector3(0,0,10f);
     }
 }

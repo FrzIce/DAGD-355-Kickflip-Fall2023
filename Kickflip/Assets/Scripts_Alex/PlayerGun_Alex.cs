@@ -14,7 +14,7 @@ public class PlayerGun_Alex : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // Instantiate(Player, new Vector3(0,0), Quaternion.identity);
+        Instantiate(Player, new Vector3(0,0), Quaternion.identity);
        // Instantiate(Reticule, Reticule.transform.position, Quaternion.identity);
 
     }
@@ -26,7 +26,7 @@ public class PlayerGun_Alex : MonoBehaviour
        
         worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
-        Reticule.transform.position = worldPosition;
+        //Reticule.transform.position = worldPosition;
 
         //Reticule.transform.position = Input.mousePosition;
 
