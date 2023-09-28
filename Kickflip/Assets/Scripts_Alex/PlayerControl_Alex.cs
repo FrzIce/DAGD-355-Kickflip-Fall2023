@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class PlayerControl_Alex : MonoBehaviour
 {
     public GameObject crosshair;
-    public GameObject bullet;
+    //public GameObject bullet;
     public Image img;
-    public int bulletSpeed = 100;
+    public BulletSpawner_Alex gun;
+    public BombSpawner_Alex noobTube;
+    
     public ReticuleControl_Alex rc;
     private float lookitx;
     private float lookity;
@@ -18,8 +20,8 @@ public class PlayerControl_Alex : MonoBehaviour
     void Start()
     {
         rc = GameObject.FindGameObjectWithTag("reticule").GetComponent<ReticuleControl_Alex>();
-        
-        
+        gun = GameObject.FindGameObjectWithTag("gun").GetComponent<BulletSpawner_Alex>();
+        noobTube = GameObject.FindGameObjectWithTag("gun").GetComponent<BombSpawner_Alex>();
     }
 
     // Update is called once per frame
@@ -41,20 +43,8 @@ public class PlayerControl_Alex : MonoBehaviour
             //img.flip
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameObject newBullet = Instantiate(bullet, transform);
-            Rigidbody2D rb = newBullet.GetComponent<Rigidbody2D>();
-            rb.velocity = -transform.up * bulletSpeed;
-        }
-
-
-    }
-
-    private void OnMouseDown()
-    {
        
-        
-        //float angle
+
+
     }
 }
