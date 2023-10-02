@@ -9,14 +9,15 @@ using TMPro;
 public class Player : MonoBehaviour
 {
 
-    [SerializeField]
-    private Image imageCooldown;
-    [SerializeField]
-    private TMP_Text textCooldown;
+    //[SerializeField]
+    //private Image imageCooldown;
+    //[SerializeField]
+    //private TMP_Text textCooldown;
 
 
     private Rigidbody2D rb;
-    public int health = 3;
+    public int health;
+    public int maxHealth = 3;
     public bool alive;
     public float jumpForce = 5;
     public float speed = 5;
@@ -39,16 +40,17 @@ public class Player : MonoBehaviour
         //calling scripts so we can get codes from other objects - 2
         //recall = GameObject.FindGameObjectWithTag("Recall Collision").GetComponent<RecallCollision_Trevor>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
-        textCooldown = GetComponent<TextMeshPro>();
+        //textCooldown = GetComponent<TextMeshPro>();
 
+        health = maxHealth;
         alive = true;
         recallSet = false;
         recallCD = 10;
         rb = GetComponent<Rigidbody2D>();
 
-        //colldown icon
-        textCooldown.gameObject.SetActive(false);
-        imageCooldown.fillAmount = 0.0f;
+        ////colldown icon
+        //textCooldown.gameObject.SetActive(false);
+        //imageCooldown.fillAmount = 0.0f;
     }
 
     // Update is called once per frame
@@ -117,8 +119,8 @@ public class Player : MonoBehaviour
             else if (recallCD >= 10)
             {
                 recallReady = true;
-                textCooldown.gameObject.SetActive(false);
-                imageCooldown.fillAmount = 0.0f;
+                //textCooldown.gameObject.SetActive(false);
+                //imageCooldown.fillAmount = 0.0f;
             }
             //print(recallCD); // Debug
         }
@@ -132,8 +134,8 @@ public class Player : MonoBehaviour
     {
         //subtrack time since last called
         recallCD += Time.deltaTime;
-        textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
-        imageCooldown.fillAmount = recallCD / 10f;
+        //textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
+        //imageCooldown.fillAmount = recallCD / 10f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -150,6 +152,28 @@ public class Player : MonoBehaviour
         {
             grounded = true;
         }
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            health -= 1;
+            //rb.velocity = new Vector2(0, rb.velocity.y + 5);
+        }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Potion")
+        {
+            if(health >= maxHealth)
+            {
+
+            } 
+            else
+            {
+                Destroy(GameObject.FindGameObjectWithTag("Potion"));
+                health += 1;
+            }
+            
+        }
     }
 }

@@ -12,6 +12,8 @@ TagManager:
   - Logic
   - Recall Collision
   - Canvas
+  - Jump Platform
+  - Potion
   layers:
   - Default
   - TransparentFX
