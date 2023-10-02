@@ -10,6 +10,8 @@ TagManager:
   - Driller
   - Enemy
   - Logic
+  - Recall Collision
+  - Canvas
   layers:
   - Default
   - TransparentFX

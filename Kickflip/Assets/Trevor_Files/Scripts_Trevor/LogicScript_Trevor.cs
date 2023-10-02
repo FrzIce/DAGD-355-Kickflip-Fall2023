@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class LogicScript_Trevor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject recallCollision;
 
-    // Update is called once per frame
-    void Update()
+    public void explosionActive()
     {
-        
+        recallCollision.SetActive(true);
+    }
+    public void explosionDeActivate()
+    {
+        recallCollision.SetActive(false);
     }
 }
