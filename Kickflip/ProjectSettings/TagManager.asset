@@ -6,6 +6,8 @@ TagManager:
   tags:
   - reticule
   - gun
+  - Bomba
+  - Bullet
   layers:
   - Default
   - TransparentFX

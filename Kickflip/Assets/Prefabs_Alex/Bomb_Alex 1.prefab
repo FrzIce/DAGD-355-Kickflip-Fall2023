@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 748698055143179498}
   m_Layer: 0
   m_Name: Bomb_Alex 1
-  m_TagString: Untagged
+  m_TagString: Bomba
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,8 +263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5a96317f0a45a448ce3ca19df25351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offspring: 0
+  offsprngSpd: 0
   delay: 2
   bomba_spawn: {fileID: 1200403167314438187, guid: bb9712f679e00154699ffde8b7d427b0, type: 3}
+  bc: {fileID: 0}
 --- !u!1 &8168574627718917837
 GameObject:
   m_ObjectHideFlags: 0

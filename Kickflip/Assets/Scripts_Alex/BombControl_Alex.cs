@@ -5,8 +5,11 @@ using UnityEngine;
 public class BombControl_Alex : MonoBehaviour
 {
     private bool stuck;
+    public bool offspring;
+    public float offsprngSpd;
     public float delay = 2;
     public GameObject bomba_spawn;
+    public BombControl_Alex bc;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +24,17 @@ public class BombControl_Alex : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!stuck)
+        if (!stuck && !offspring)
         {
+            Debug.Log(offspring);
             stuck = true;
             Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
             Debug.Log("bomba hit something!" + stuck);
+            StartCoroutine(DeathSequence());
+        }
+        else if (offspring)
+        {
             StartCoroutine(DeathSequence());
         }
     }
@@ -61,15 +69,21 @@ public class BombControl_Alex : MonoBehaviour
         // Destroy this bomb
         Destroy(gameObject);
 
-        // Create smaller bombs in a burst
-        for (int i = 0; i < 5; i++)
+        if (!offspring)
         {
-            Instantiate(bomba_spawn, transform.position, Quaternion.identity);
-            Rigidbody2D rb = bomba_spawn.GetComponent<Rigidbody2D>();
-            Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-            rb.velocity = randomDirection * Random.Range(2f, 5f);
-            rb.angularVelocity = Random.Range(-360f, 360f);
-
+            // Create smaller bombs in a burst
+            for (int i = 0; i < 5; i++)
+            {
+                Instantiate(bomba_spawn, transform.position, Quaternion.identity);
+                Rigidbody2D rb = bomba_spawn.GetComponent<Rigidbody2D>();
+                bc = bomba_spawn.GetComponent<BombControl_Alex>();
+                bc.offspring = true;
+                Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+                rb.velocity = randomDirection * 20f;
+                rb.angularVelocity = Random.Range(-360f, 360f);
+            }
         }
+        
+
     }
 }
