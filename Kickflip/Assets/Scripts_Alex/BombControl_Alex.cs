@@ -9,6 +9,7 @@ public class BombControl_Alex : MonoBehaviour
     public float offsprngSpd;
     public float delay = 2;
     public GameObject bomba_spawn;
+    public GameObject particles;
     public BombControl_Alex bc;
     // Start is called before the first frame update
     void Start()
@@ -22,21 +23,24 @@ public class BombControl_Alex : MonoBehaviour
        
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!stuck && !offspring)
+
+        if (collision.gameObject.tag != "Player")
         {
-            Debug.Log(offspring);
-            stuck = true;
-            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-            rb.constraints = RigidbodyConstraints2D.FreezePosition;
-            Debug.Log("bomba hit something!" + stuck);
-            StartCoroutine(DeathSequence());
+            if (!stuck && !offspring)
+            {
+                stuck = true;
+                Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+                rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                StartCoroutine(DeathSequence());
+            }
+            if (offspring)
+            {
+                StartCoroutine(DeathSequence());
+            }
         }
-        else if (offspring)
-        {
-            StartCoroutine(DeathSequence());
-        }
+        
     }
 
     private IEnumerator DeathSequence()
@@ -67,12 +71,13 @@ public class BombControl_Alex : MonoBehaviour
         }
 
         // Destroy this bomb
+        Instantiate(particles, transform.position, Quaternion.identity);
         Destroy(gameObject);
 
         if (!offspring)
         {
             // Create smaller bombs in a burst
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Instantiate(bomba_spawn, transform.position, Quaternion.identity);
                 Rigidbody2D rb = bomba_spawn.GetComponent<Rigidbody2D>();

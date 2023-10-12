@@ -202,7 +202,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -267,6 +267,7 @@ MonoBehaviour:
   offsprngSpd: 0
   delay: 2
   bomba_spawn: {fileID: 1200403167314438187, guid: bb9712f679e00154699ffde8b7d427b0, type: 3}
+  particles: {fileID: 1708616181831835230, guid: d34ace114cbcf8b4b98a415fab778028, type: 3}
   bc: {fileID: 0}
 --- !u!1 &8168574627718917837
 GameObject:

@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 2697074334425054780}
   - component: {fileID: 7596000059864917645}
   - component: {fileID: 2913122433256937078}
-  - component: {fileID: 8672872722892174725}
-  - component: {fileID: 761906014201504917}
   - component: {fileID: 3268521700775258436}
   - component: {fileID: 4438994944908350099}
   m_Layer: 0
@@ -118,41 +116,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
---- !u!114 &8672872722892174725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353069976152676014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e500ea1f2c62c0844a561540f448e57c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crosshair: {fileID: 5572298304279524688, guid: 7ac27b8464eee9649ac2ffaaa268b1b5, type: 3}
-  img: {fileID: 0}
-  gun: {fileID: 0}
-  noobTube: {fileID: 0}
-  rc: {fileID: 0}
---- !u!114 &761906014201504917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353069976152676014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e500ea1f2c62c0844a561540f448e57c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crosshair: {fileID: 5572298304279524688, guid: 7ac27b8464eee9649ac2ffaaa268b1b5, type: 3}
-  img: {fileID: 0}
-  gun: {fileID: 3268521700775258436}
-  noobTube: {fileID: 0}
-  rc: {fileID: 0}
+  m_Constraints: 0
 --- !u!114 &3268521700775258436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1c3db708c20aa4fbc13735ad97ff5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mag: 12
+  Timer: 0
+  reloadTime: 2
   bullet: {fileID: 0}
+  rc: {fileID: 0}
+  hasAK: 0
+  bulletSpeed: 5
 --- !u!114 &4438994944908350099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b074ba68efbc2148bfaa892bb25e250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 5
+  Timer: 0
   bomba: {fileID: 2677589034465835806, guid: 589319ce288c5c64dbcb4b03e9897935, type: 3}
 --- !u!1 &3997325570000013356
 GameObject:
@@ -472,7 +444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483fd79ada910d0418c6bada251dbd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6505413823289136972, guid: ead75d154c566bd45b0c73c658e9d6f7, type: 3}
   bulletSpeed: 100
   sprite: {fileID: 316050862142336594, guid: 0021228f10231c441925b22aa0bbcbe7, type: 3}
 --- !u!114 &1804538681465650080
@@ -487,7 +458,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1c3db708c20aa4fbc13735ad97ff5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mag: 12
+  Timer: 0
+  reloadTime: 2
   bullet: {fileID: 316050862142336594, guid: 0021228f10231c441925b22aa0bbcbe7, type: 3}
+  rc: {fileID: 0}
+  hasAK: 0
+  bulletSpeed: 5
 --- !u!114 &8585848519906593615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,4 +477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b074ba68efbc2148bfaa892bb25e250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 5
+  Timer: 0
   bomba: {fileID: 2518256667983916100, guid: 4b2ad14a647ab1b489bb49efe5f94ccb, type: 3}

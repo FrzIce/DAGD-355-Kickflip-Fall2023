@@ -6,6 +6,8 @@ public class ReticuleControl_Alex : MonoBehaviour
 {
     public Vector3 screenPosition;
     public Vector3 worldPosition;
+    public GameObject player;
+   
 
     // Start is called before the first frame update
     void Start()

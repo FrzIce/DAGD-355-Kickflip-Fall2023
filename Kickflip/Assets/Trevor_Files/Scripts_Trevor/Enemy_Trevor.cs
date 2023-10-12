@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     public Player player;
 
+    public bool isFlier;
     public int health;
     public float jumpForce = 5;
+    public float flyForce = 10;
     public float speed = 3;
     public float horizontalMovement;
     public float verticalMovement;
@@ -35,8 +38,15 @@ public class Enemy : MonoBehaviour
         {
             horizontalMovement = speed;
         }
-        rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
+       
 
+        while ((player.transform.position.y > transform.position.y) && isFlier)
+        {
+            Debug.Log("player y: " + player.transform.position.y + " Flier y: " + transform.position.y);
+            verticalMovement = speed * flyForce;
+        }
+        
+        rb.velocity = new Vector2(horizontalMovement, verticalMovement);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,6 +60,7 @@ public class Enemy : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             grounded = false;
         }
+       
 
     }
 
@@ -58,9 +69,15 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            
+        }
+        if (collision.gameObject.tag == "Platform" && isFlier)
+        {
+            horizontalMovement = player.transform.position.x * flyForce;
         }
     }
+
+ 
+ 
 
 
 

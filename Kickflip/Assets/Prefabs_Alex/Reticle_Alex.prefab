@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2765806725285977238}
   m_Layer: 0
   m_Name: Reticle_Alex
-  m_TagString: Untagged
+  m_TagString: reticule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

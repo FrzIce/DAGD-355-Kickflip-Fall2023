@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
     public float horizontalMovement;
     public float verticalMovement;
     public bool grounded;
+    public BulletSpawner_Alex gun;
+    
 
     //calling scripts so we can get codes from other objects - 1
     //public RecallCollision_Trevor recall;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gun = GetComponent<BulletSpawner_Alex>();
         //calling scripts so we can get codes from other objects - 2
         //recall = GameObject.FindGameObjectWithTag("Recall Collision").GetComponent<RecallCollision_Trevor>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
@@ -174,6 +177,10 @@ public class Player : MonoBehaviour
                 health += 1;
             }
             
+        }
+        else if(collision.gameObject.tag == "AK")
+        {
+            gun.hasAK = true;
         }
     }
 }
