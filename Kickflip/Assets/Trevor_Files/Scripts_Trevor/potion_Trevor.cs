@@ -13,7 +13,7 @@ public class potion_Trevor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position= new Vector2(transform.position.x, transform.position.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
