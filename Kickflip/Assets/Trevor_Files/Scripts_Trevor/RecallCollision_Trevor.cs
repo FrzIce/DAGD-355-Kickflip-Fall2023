@@ -12,6 +12,9 @@ public class RecallCollision_Trevor : MonoBehaviour
     public Player player;
     public Enemy enemy;
     public LogicScript_Trevor logic;
+    public Animator animator;
+
+    public AudioSource recall;
 
     //public bool explosion; // when this is active then the object can collide and will be active for 1 secs after recalls
     public float explosionTimer = 0.0f;
@@ -23,15 +26,22 @@ public class RecallCollision_Trevor : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
+        animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
 
-        
+        recall = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (player.explosion == true)
         {
+            if (explosionTimer == 0)
+            {
+                recall.Play();
+            }
             if (explosionTimer < 1)
             {
                 explosionTimer += Time.deltaTime;
@@ -41,6 +51,7 @@ public class RecallCollision_Trevor : MonoBehaviour
                 explosionTimer = 0;
                 player.explosion = false;
                 logic.explosionDeActivate();
+                animator.SetBool("Recall", false);
             }
         }
         //print(explosionTimer);
