@@ -17,4 +17,6 @@ public class LogicScript_Trevor : MonoBehaviour
     {
         recallCollision.SetActive(false);
     }
+
+    
 }

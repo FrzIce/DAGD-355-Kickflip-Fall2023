@@ -10,13 +10,17 @@ public class Player : MonoBehaviour
 {
 
     //[SerializeField]
-    //private Image imageCooldown;
+    //public Image imageCooldown;
     //[SerializeField]
-    //private TMP_Text textCooldown;
+    //public TMP_Text textCooldown;
 
     //calling scripts so we can get codes from other objects - 1
     public Animator animator;
     public LogicScript_Trevor logic;
+    public GameObject explosionParticle;
+
+    public AudioSource potion;
+
 
     private Rigidbody2D rb;
     public int health;
@@ -31,7 +35,7 @@ public class Player : MonoBehaviour
 
 
     //Player platforms and AI uasage
-    string platform;
+    public string platform = "Null";
 
 
 
@@ -58,6 +62,7 @@ public class Player : MonoBehaviour
 
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
+        
 
         health = maxHealth;
         alive = true;
@@ -65,7 +70,9 @@ public class Player : MonoBehaviour
         recallCD = 10;
         rb = GetComponent<Rigidbody2D>();
 
-        ////colldown icon
+        potion = GetComponent<AudioSource>();
+
+        //colldown icon
         //textCooldown.gameObject.SetActive(false);
         //imageCooldown.fillAmount = 0.0f;
     }
@@ -74,6 +81,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         print(platform);
+        //print(transform.position.x);
+        //print(transform.position.y);
         //print(animator.GetFloat("Speed"));
 
         //Ends Game
@@ -129,6 +138,7 @@ public class Player : MonoBehaviour
                     recallPoint = new Vector2(0, 0);
                     explosion = true;
                     logic.explosionActive();
+                    Instantiate(explosionParticle, transform.position, transform.rotation);
                 }
             }
 
@@ -212,6 +222,7 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Floor")
         {
+            platform = "Null";
             grounded = true;
             animator.SetBool("IsJumping", false);
 
@@ -237,6 +248,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                potion.Play();
                 Destroy(GameObject.FindGameObjectWithTag("Potion"));
                 health += 1;
             }
@@ -244,9 +256,16 @@ public class Player : MonoBehaviour
         }
 
         //upgraded AI?
-        else if (collision.gameObject.tag == "Platform")
+
+        //else if (collision.gameObject.tag != "Platform")
+        //{
+        //    platform = "Null";
+        //}
+
+        if (collision.gameObject.tag == "Platform")
         {
-            if (transform.position.y <= 5) // Level 1
+            print("Colliding");
+            if (transform.position.y <= 6) // Level 1
             {
                 if (transform.position.x < 0) //A
                 {
@@ -257,7 +276,7 @@ public class Player : MonoBehaviour
                     platform = "B";
                 }
             }
-            else if (transform.position.y <= 10) // Level 2
+            else if (transform.position.y <= 11 && transform.position.y > 6) // Level 2
             {
                 if (transform.position.x < -10) //C
                 {
@@ -268,10 +287,10 @@ public class Player : MonoBehaviour
                     platform = "D";
                 }
             }
-            else if (transform.position.y >= 10) // Level 3
+            else if (transform.position.y > 11) // Level 3
             {
                 if (transform.position.x < 10) //E
-                {
+                {                
                     platform = "E";
                 }
                 else if (transform.position.x > 10) //F
@@ -282,9 +301,11 @@ public class Player : MonoBehaviour
             }
         }
 
-        else if (collision.gameObject.tag != "Platform")
-        {
-            platform = "Null";   
-        }
+        
+
+        //if (collision.gameObject.tag == "Floor")
+        //{
+        //    platform = "Null";
+        //}
     }
 }

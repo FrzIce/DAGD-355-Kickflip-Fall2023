@@ -14,6 +14,8 @@ TagManager:
   - Canvas
   - Jump Platform
   - Potion
+  - Jump Platform 2
+  - Jump Platform 3
   layers:
   - Default
   - TransparentFX
