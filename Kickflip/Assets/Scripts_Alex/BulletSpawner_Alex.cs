@@ -15,9 +15,15 @@ public class BulletSpawner_Alex : MonoBehaviour
     public bool hasAK;
     public float bulletSpeed = 5f;
     private bool holdClick;
+    private Animator anime;
+
+    public AudioSource gun;
+    public AudioSource reload;
+    public AudioSource ak;
     // Start is called before the first frame update
     void Start()
     {
+        anime = GetComponent<Animator>();
         rc = GameObject.FindGameObjectWithTag("reticule").GetComponent<ReticuleControl_Alex>();
     }
 
@@ -27,10 +33,12 @@ public class BulletSpawner_Alex : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             holdClick = true;
+            anime.SetBool("isAttacking", true);
         }
         if(Input.GetMouseButtonUp(0))
         {
             holdClick = false;
+            anime.SetBool("isAttacking", false);
         }
 
         if (hasAK)
@@ -39,9 +47,10 @@ public class BulletSpawner_Alex : MonoBehaviour
             {
                 Debug.Log("time spent with AK " + AKTimer);
                 AKTimer += Time.deltaTime;
-                if(Timer >= bigShootTimer)
+                if(AKTimer >= bigShootTimer)
                 {
                     hasAK = false;
+                    AKTimer = 0;
                     mag = 12;
                 }
             }
@@ -50,6 +59,7 @@ public class BulletSpawner_Alex : MonoBehaviour
 
         if (Timer <= reloadTime)
         {
+            
             Debug.Log("reloading " + Timer);
             Timer += Time.deltaTime;
             if(Timer >= reloadTime && !hasAK)
@@ -67,9 +77,18 @@ public class BulletSpawner_Alex : MonoBehaviour
             if (mag == 0)
             {
                 Timer = 0f;
+                reload.Play();
             }
+            gun.Play();
         } 
 
+        if (Input.GetMouseButtonDown(0) && hasAK){
+            ak.Play();
+        }
+        if (Input.GetMouseButtonUp(0) || !hasAK)
+        {
+            ak.Stop();
+        }
 
         if (holdClick && mag != 0 && hasAK)
         {

@@ -15,6 +15,9 @@ public class Enemy : MonoBehaviour
     public float horizontalMovement;
     public float verticalMovement;
     public bool grounded;
+    private bool isDead = false;
+
+    public Animator flyAnime;
 
     private Rigidbody2D rb;
     // Start is called before the first frame update
@@ -29,6 +32,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            verticalMovement -= Time.deltaTime;
+            horizontalMovement = 0;
+        }
         print(health);
         if (player.transform.position.x < transform.position.x)
         {
@@ -40,12 +48,23 @@ public class Enemy : MonoBehaviour
         }
        
 
-        while ((player.transform.position.y > transform.position.y) && isFlier)
+        if (isFlier && !isDead)
         {
-            Debug.Log("player y: " + player.transform.position.y + " Flier y: " + transform.position.y);
-            verticalMovement = speed * flyForce;
+            if (player.transform.position.y > transform.position.y + 2f)
+            {
+                verticalMovement = flyForce;
+            }
+            if (player.transform.position.y == transform.position.y)
+            {
+                verticalMovement = 0;
+            }
+            if (player.transform.position.y < transform.position.y)
+            {
+                verticalMovement = -flyForce / 2;
+            }
+            
         }
-        
+        Debug.Log("player y: " + player.transform.position.y + " Flier y: " + transform.position.y);
         rb.velocity = new Vector2(horizontalMovement, verticalMovement);
     }
 
@@ -60,7 +79,11 @@ public class Enemy : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             grounded = false;
         }
-       
+        if (collision.gameObject.tag == "Bullet")
+        {
+            isDead = true;
+            flyAnime.SetBool("isDead", isDead);
+        }
 
     }
 
@@ -70,6 +93,7 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
         if (collision.gameObject.tag == "Platform" && isFlier)
         {
             horizontalMovement = player.transform.position.x * flyForce;
