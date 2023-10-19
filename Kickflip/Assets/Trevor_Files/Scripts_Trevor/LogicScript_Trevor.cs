@@ -13,8 +13,11 @@ public class LogicScript_Trevor : MonoBehaviour
 
     public void Update()
     {
-        
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame();
+        }
+
     }
 
     
@@ -27,6 +30,21 @@ public class LogicScript_Trevor : MonoBehaviour
     public void explosionDeActivate()
     {
         recallCollision.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void playGame()
+    {
+        SceneManager.LoadScene("Final_Scene_Trevor");
+    }
+
+    public void endGame()
+    {
+        SceneManager.LoadScene("Game_Over_Menu");
     }
 
     

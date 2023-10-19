@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Final_Scene_Trevor.unity
+    path: Assets/Scenes/Final Scenes/Intro_Menu.unity
+    guid: d923ed13c343d2848b8c60e66649a959
+  - enabled: 1
+    path: Assets/Scenes/Final Scenes/Final_Scene_Trevor.unity
     guid: bbd9d799def36d44db64bfcb86da7f78
+  - enabled: 1
+    path: Assets/Scenes/Final Scenes/Game_Over_Menu.unity
+    guid: 56aea21965477a94687a1b5a8b1994c2
   m_configObjects: {}

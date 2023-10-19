@@ -100,15 +100,13 @@ public class Player : MonoBehaviour
         //print(animator.GetFloat("Speed"));
 
         //Ends Game
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
+        
 
         if (health <= 0) // Checks if player is dead
         {
             alive = false;
             Destroy(gameObject);
+            logic.endGame();
         }
 
         //Movement help
