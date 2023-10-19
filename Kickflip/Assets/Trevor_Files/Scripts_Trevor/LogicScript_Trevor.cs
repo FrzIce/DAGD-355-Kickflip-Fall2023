@@ -8,6 +8,17 @@ using Unity.VisualScripting;
 public class LogicScript_Trevor : MonoBehaviour
 {
     public GameObject recallCollision;
+    public GameObject healthPotion;
+    
+
+    public void Update()
+    {
+        
+        
+    }
+
+    
+
 
     public void explosionActive()
     {
@@ -17,6 +28,8 @@ public class LogicScript_Trevor : MonoBehaviour
     {
         recallCollision.SetActive(false);
     }
+
+    
 
     
 }

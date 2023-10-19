@@ -19,7 +19,9 @@ public class Player : MonoBehaviour
     public LogicScript_Trevor logic;
     public GameObject explosionParticle;
     public potion_Trevor potion;
+    public GameObject healthPotion;
 
+    public Potion_Spawns spawnPotion;
     public AudioSource health_Potion;
 
 
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour
         //recall = GameObject.FindGameObjectWithTag("Recall Collision").GetComponent<RecallCollision_Trevor>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
         potion = GameObject.FindGameObjectWithTag("Potion").GetComponent<potion_Trevor>();
+        spawnPotion = GameObject.FindGameObjectWithTag("potion_Spawner").GetComponent<Potion_Spawns>();
 
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
@@ -262,8 +265,9 @@ public class Player : MonoBehaviour
             {
                 health_Potion.Play();
                 //potion.play();
-                Destroy(GameObject.FindGameObjectWithTag("Potion"));
+                Destroy(GameObject.FindGameObjectWithTag("Potion"));                
                 health += 1;
+                
             }
 
         }
