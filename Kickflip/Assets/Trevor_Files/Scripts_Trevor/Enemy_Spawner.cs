@@ -8,6 +8,7 @@ public class Enemy_Spawner : MonoBehaviour
     float spawnTimer = 5;
 
     public GameObject Enemy_Trevor;
+    public GameObject obj;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +28,8 @@ public class Enemy_Spawner : MonoBehaviour
     public void spawnEnemy()
     {
         print("spawning");
-        enemyType = Random.Range(0, 1);        
-        Instantiate(Enemy_Trevor, transform.position, Quaternion.identity);
+        enemyType = Random.Range(0, 1);
+        obj = Instantiate(Enemy_Trevor, transform.position, Quaternion.identity);        
         spawnTimer = 5;
     }
 }
