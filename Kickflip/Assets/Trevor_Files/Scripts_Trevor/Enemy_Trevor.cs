@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     public float horizontalMovement;
     public float verticalMovement;
     public bool grounded;
-    private bool isDead = false;
+    //private bool isDead = false;
     bool facingRight = true;
     bool jumpPlatform1 = false;
     bool jumpPlatform2 = false;
@@ -411,7 +411,7 @@ public class Enemy : MonoBehaviour
                         }
                         else if (flip == true)
                         {
-                            print("test");
+                           // print("test");
                             horizontalMovement = speed * -1;
                             if (jumpPlatform2 == true)
                             {
@@ -484,24 +484,35 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
-        //if (isFlier) //Alex Code
-        //{
-        //    if (player.transform.position.y > transform.position.y + 2f)
-        //    {
-        //        verticalMovement = flyForce;
-        //    }
-        //    if (player.transform.position.y == transform.position.y)
-        //    {
-        //        verticalMovement = 0;
-        //    }
-        //    if (player.transform.position.y < transform.position.y)
-        //    {
-        //        verticalMovement = -flyForce / 2;
-        //    }
+        if (isFlier) //Alex Code
+        {
+            animator.SetBool("isFlier", true);
+            health = 1;
 
-        //}
-        //Debug.Log("player y: " + player.transform.position.y + " Flier y: " + transform.position.y);
-        //rb.velocity = new Vector2(horizontalMovement, verticalMovement);
+            if (player.transform.position.x < transform.position.x)
+            {
+                horizontalMovement = speed * -1;
+            }
+            else if (player.transform.position.x > transform.position.x)
+            {
+                horizontalMovement = speed;
+            }
+
+            if (player.transform.position.y > transform.position.y + 2f)
+            {
+                verticalMovement = flyForce;
+            }
+            if (player.transform.position.y == transform.position.y)
+            {
+                verticalMovement = 0;
+            }
+            if (player.transform.position.y < transform.position.y)
+            {
+                verticalMovement = -flyForce / 2;
+            }
+            rb.velocity = new Vector2(horizontalMovement, verticalMovement);
+        }
+        
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMovement)); // animation
 

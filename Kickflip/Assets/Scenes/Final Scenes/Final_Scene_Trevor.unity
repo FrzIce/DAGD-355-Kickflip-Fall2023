@@ -1091,7 +1091,7 @@ MonoBehaviour:
   health_Potion: {fileID: 517214306}
   UI: {fileID: 0}
   health: 0
-  maxHealth: 3
+  maxHealth: 100000
   alive: 0
   jumpForce: 16
   speed: 8
@@ -1341,7 +1341,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8d9ffaede91e7cd44885c8c86f1d92f0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.342
+  m_Volume: 0.057
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2123,7 +2123,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.291
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

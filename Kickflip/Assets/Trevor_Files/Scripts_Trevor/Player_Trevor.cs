@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("test");
+        //print("test");
         
         //print(transform.position.x);
         //print(transform.position.y);
@@ -130,7 +130,14 @@ public class Player : MonoBehaviour
 
         if (alive)
         {
-
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                animator.SetBool("isAttacking", true);
+            }
+            if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+            {
+                animator.SetBool("isAttacking", false);
+            }
 
             //Recall set and recall
             if (Input.GetKeyDown(KeyCode.E))

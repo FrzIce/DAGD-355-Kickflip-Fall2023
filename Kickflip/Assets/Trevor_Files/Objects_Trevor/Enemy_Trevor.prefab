@@ -173,9 +173,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 6872437957509067280}
   deathParticle: {fileID: 6361983446914003956, guid: c87bce5530f784743a228544ae582b93, type: 3}
   sfx: {fileID: 0}
+  eS: {fileID: 0}
   isFlier: 0
   health: 2
   jumpForce: 16
