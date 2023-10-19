@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Scene_Trevor.unity
+    path: Assets/Scenes/Scene_Trevor_Main.unity
     guid: bbd9d799def36d44db64bfcb86da7f78
   m_configObjects: {}
