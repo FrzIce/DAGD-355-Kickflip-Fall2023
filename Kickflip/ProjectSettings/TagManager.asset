@@ -16,6 +16,7 @@ TagManager:
   - Potion
   - Jump Platform 2
   - Jump Platform 3
+  - Recall Cooldown
   layers:
   - Default
   - TransparentFX

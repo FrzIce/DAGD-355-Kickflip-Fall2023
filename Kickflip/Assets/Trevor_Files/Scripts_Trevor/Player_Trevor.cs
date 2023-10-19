@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public GameObject explosionParticle;
 
     public AudioSource potion;
-
+    public UI_Trevor UI;
 
     private Rigidbody2D rb;
     public int health;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
 
 
-    //State animation variables
+    ////State animation variables
     public float injureTimer = 0;
 
     
@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
         
+        UI = GameObject.FindGameObjectWithTag("Recall Cooldown").GetComponent<UI_Trevor>();
 
         health = maxHealth;
         alive = true;
@@ -129,6 +130,8 @@ public class Player : MonoBehaviour
                     recallSet = true;
                     recallReady = false;
                     recallCD = 0;
+                    UI.textCooldown.gameObject.SetActive(true);
+                    UI.textCooldown.text = "Set";
                 }
                 else if (recallSet == true)
                 {
@@ -172,8 +175,8 @@ public class Player : MonoBehaviour
             else if (recallCD >= 10)
             {
                 recallReady = true;
-                //textCooldown.gameObject.SetActive(false);
-                //imageCooldown.fillAmount = 0.0f;
+                UI.textCooldown.gameObject.SetActive(false);
+                UI.imageCooldown.fillAmount = 0.0f;
             }
             //print(recallCD); // Debug
         }
@@ -201,8 +204,9 @@ public class Player : MonoBehaviour
     {
         //subtrack time since last called
         recallCD += Time.deltaTime;
-        //textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
-        //imageCooldown.fillAmount = recallCD / 10f;
+        
+        UI.textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
+        UI.imageCooldown.fillAmount = recallCD / 10f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
