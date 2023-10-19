@@ -10,10 +10,17 @@ public class Player : MonoBehaviour
 {
 
     //[SerializeField]
-    //private Image imageCooldown;
+    //public Image imageCooldown;
     //[SerializeField]
-    //private TMP_Text textCooldown;
+    //public TMP_Text textCooldown;
 
+    //calling scripts so we can get codes from other objects - 1
+    public Animator animator;
+    public LogicScript_Trevor logic;
+    public GameObject explosionParticle;
+
+    public AudioSource potion;
+    public UI_Trevor UI;
 
     private Rigidbody2D rb;
     public int health;
@@ -24,26 +31,39 @@ public class Player : MonoBehaviour
     public float horizontalMovement;
     public float verticalMovement;
     public bool grounded;
-    public BulletSpawner_Alex gun;
+    bool facingRight = true;
+
+
+    //Player platforms and AI uasage
+    public string platform = "Null";
+
+
+
+    ////State animation variables
+    public float injureTimer = 0;
+
     
 
-    //calling scripts so we can get codes from other objects - 1
+    //Recall Variables
     //public RecallCollision_Trevor recall;
-    public LogicScript_Trevor logic;
-
     public bool recallSet;
     public Vector2 recallPoint;
     public float recallCD;
     public bool recallReady;
     public bool explosion = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        gun = GetComponent<BulletSpawner_Alex>();
         //calling scripts so we can get codes from other objects - 2
         //recall = GameObject.FindGameObjectWithTag("Recall Collision").GetComponent<RecallCollision_Trevor>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
+
+        animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
+        
+        UI = GameObject.FindGameObjectWithTag("Recall Cooldown").GetComponent<UI_Trevor>();
 
         health = maxHealth;
         alive = true;
@@ -51,7 +71,9 @@ public class Player : MonoBehaviour
         recallCD = 10;
         rb = GetComponent<Rigidbody2D>();
 
-        ////colldown icon
+        potion = GetComponent<AudioSource>();
+
+        //colldown icon
         //textCooldown.gameObject.SetActive(false);
         //imageCooldown.fillAmount = 0.0f;
     }
@@ -59,12 +81,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(platform);
+        //print(transform.position.x);
+        //print(transform.position.y);
+        //print(animator.GetFloat("Speed"));
 
         //Ends Game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-        }        
+        }
 
         if (health <= 0) // Checks if player is dead
         {
@@ -73,72 +99,114 @@ public class Player : MonoBehaviour
         }
 
         //Movement help
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         horizontalMovement = (h * speed);
 
+        if(injureTimer >= .8)
+        {
+            notInjured();
+        }
+        else if (injureTimer < .8)
+        {
+            injureTimer += Time.deltaTime;
+        }
+        
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
+
 
         if (alive)
         {
-            
+
 
             //Recall set and recall
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if((recallSet == false) && (recallReady == true))
+                if ((recallSet == false) && (recallReady == true))
                 {
                     recallPoint = transform.position;
                     recallSet = true;
                     recallReady = false;
                     recallCD = 0;
+                    UI.textCooldown.gameObject.SetActive(true);
+                    UI.textCooldown.text = "Set";
                 }
                 else if (recallSet == true)
                 {
+                    animator.SetBool("Recall", true);
                     transform.position = recallPoint;
                     recallSet = false;
                     recallPoint = new Vector2(0, 0);
                     explosion = true;
                     logic.explosionActive();
-                }                
+                    Instantiate(explosionParticle, transform.position, transform.rotation);
+                }
+            }
+
+            if (horizontalMovement > 0 && !facingRight)
+            {
+                Flip();
+            }
+            else if (horizontalMovement < 0 && facingRight)
+            {
+                Flip();
             }
 
 
-
+            // Movement
+            rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
             // Jumping
             if (Input.GetKeyDown(KeyCode.Space) && grounded == true)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 grounded = false;
+                animator.SetBool("IsJumping", true);
             }
-            // Movement
-            rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
+            
 
 
             // Recall Cooldown - will be active when recall is cooling down - 10 sec
-            if((recallCD < 10) && (recallSet == false) && (recallReady == false))
+            if ((recallCD < 10) && (recallSet == false) && (recallReady == false))
             {
                 ApplyCooldown();
             }
             else if (recallCD >= 10)
             {
                 recallReady = true;
-                //textCooldown.gameObject.SetActive(false);
-                //imageCooldown.fillAmount = 0.0f;
+                UI.textCooldown.gameObject.SetActive(false);
+                UI.imageCooldown.fillAmount = 0.0f;
             }
             //print(recallCD); // Debug
         }
 
-        
 
 
+
+    }
+
+    void Flip()
+    {
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        facingRight = !facingRight;
+    }
+
+    void notInjured()
+    {
+        animator.SetBool("Injured", false);
     }
 
     void ApplyCooldown()
     {
         //subtrack time since last called
         recallCD += Time.deltaTime;
-        //textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
-        //imageCooldown.fillAmount = recallCD / 10f;
+        
+        UI.textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
+        UI.imageCooldown.fillAmount = recallCD / 10f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -148,16 +216,27 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "Platform")
-        {
-            grounded = true;
+        {            
+            
+            if ((transform.position.y <= 3 && transform.position.y >= 0) || (transform.position.y <= 8 && transform.position.y >= 5) || (transform.position.y <= 13 && transform.position.y >= 10))
+            {
+                grounded = true;
+                animator.SetBool("IsJumping", false);
+            }
         }
         else if (collision.gameObject.tag == "Floor")
         {
+            platform = "Null";
             grounded = true;
+            animator.SetBool("IsJumping", false);
+
         }
         else if (collision.gameObject.tag == "Enemy")
         {
             health -= 1;
+            injureTimer = 0;
+            animator.SetBool("Injured", true);
+            
             //rb.velocity = new Vector2(0, rb.velocity.y + 5);
         }
 
@@ -165,22 +244,72 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Potion")
+        if (collision.gameObject.tag == "Potion")
         {
-            if(health >= maxHealth)
+            if (health >= maxHealth)
             {
 
-            } 
+            }
             else
             {
+                potion.Play();
                 Destroy(GameObject.FindGameObjectWithTag("Potion"));
                 health += 1;
             }
-            
+
         }
-        else if(collision.gameObject.tag == "AK")
+
+        //upgraded AI?
+
+        //else if (collision.gameObject.tag != "Platform")
+        //{
+        //    platform = "Null";
+        //}
+
+        if (collision.gameObject.tag == "Platform")
         {
-            gun.hasAK = true;
+            print("Colliding");
+            if (transform.position.y <= 6) // Level 1
+            {
+                if (transform.position.x < 0) //A
+                {
+                    platform = "A";
+                }
+                else if (transform.position.x > 0) //B
+                {
+                    platform = "B";
+                }
+            }
+            else if (transform.position.y <= 11 && transform.position.y > 6) // Level 2
+            {
+                if (transform.position.x < -10) //C
+                {
+                    platform = "C";
+                }
+                else if (transform.position.x > -10) //D
+                {
+                    platform = "D";
+                }
+            }
+            else if (transform.position.y > 11) // Level 3
+            {
+                if (transform.position.x < 10) //E
+                {                
+                    platform = "E";
+                }
+                else if (transform.position.x > 10) //F
+                {
+                    platform = "F";
+                }
+
+            }
         }
+
+        
+
+        //if (collision.gameObject.tag == "Floor")
+        //{
+        //    platform = "Null";
+        //}
     }
 }
