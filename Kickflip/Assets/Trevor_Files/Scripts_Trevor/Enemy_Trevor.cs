@@ -591,6 +591,10 @@ public class Enemy : MonoBehaviour
         {
             health -= 2;
         }
+        if (collision.gameObject.tag == "Bomba")
+        {
+            health -= 3;
+        }
 
     }
 

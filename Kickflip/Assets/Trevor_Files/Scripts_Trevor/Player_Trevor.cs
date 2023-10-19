@@ -20,8 +20,10 @@ public class Player : MonoBehaviour
     public GameObject explosionParticle;
     public potion_Trevor potion;
     public GameObject healthPotion;
+    public BulletSpawner_Alex bulletSpawn;
 
     public Potion_Spawns spawnPotion;
+    public Ak_Spawn spawnAk;
     public AudioSource health_Potion;
 
 
@@ -64,8 +66,9 @@ public class Player : MonoBehaviour
         //calling scripts so we can get codes from other objects - 2
         //recall = GameObject.FindGameObjectWithTag("Recall Collision").GetComponent<RecallCollision_Trevor>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
-        potion = GameObject.FindGameObjectWithTag("Potion").GetComponent<potion_Trevor>();
         spawnPotion = GameObject.FindGameObjectWithTag("potion_Spawner").GetComponent<Potion_Spawns>();
+        spawnAk = GameObject.FindGameObjectWithTag("Ak_Spawner").GetComponent<Ak_Spawn>();
+        bulletSpawn = GameObject.FindGameObjectWithTag("gun").GetComponent<BulletSpawner_Alex>();
 
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
@@ -90,6 +93,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("test");
         
         //print(transform.position.x);
         //print(transform.position.y);
@@ -264,12 +268,20 @@ public class Player : MonoBehaviour
             else
             {
                 health_Potion.Play();
-                //potion.play();
+                spawnPotion.potionAlive = false;
                 Destroy(GameObject.FindGameObjectWithTag("Potion"));                
                 health += 1;
                 
             }
 
+        }
+
+        if (collision.gameObject.tag == "AK")
+        {
+            Destroy(GameObject.FindGameObjectWithTag("AK"));
+            bulletSpawn.hasAK = true;
+            spawnAk.onGroundAk = false;
+            spawnAk.usingAk = true;
         }
 
        

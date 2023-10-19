@@ -25,6 +25,7 @@ TagManager:
   - Sfx_Manager
   - enemy_Spawner
   - potion_Spawner
+  - Ak_Spawner
   layers:
   - Default
   - TransparentFX

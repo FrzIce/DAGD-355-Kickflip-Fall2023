@@ -5,19 +5,16 @@ using UnityEngine;
 
 public class Potion_Spawns : MonoBehaviour
 {
-    float spawnTimer = 15;
-    public bool potionAlive;
     public Player player;
+    
+    private float spawnTimer = 15;
+    public bool potionAlive = false;    
     public GameObject HealthPotion;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
-        spawn();
-
-        
-
+        spawn();     
     }
 
     // Update is called once per frame
@@ -25,7 +22,7 @@ public class Potion_Spawns : MonoBehaviour
     {
         if (!potionAlive)
         {
-            if(spawnTimer > 0)
+            if (spawnTimer > 0)
             {
                 spawnTimer -= Time.deltaTime;
             }
@@ -33,7 +30,6 @@ public class Potion_Spawns : MonoBehaviour
             {
                 spawn();
                 spawnTimer = 15;
-                potionAlive = true;
             }
         }
     }
@@ -41,6 +37,8 @@ public class Potion_Spawns : MonoBehaviour
     public void spawn()
     {
         Instantiate(HealthPotion, transform.position, Quaternion.Euler(0, 0, -45));
-        potionAlive = false;
+        potionAlive = true;
     }
+
+    
 }

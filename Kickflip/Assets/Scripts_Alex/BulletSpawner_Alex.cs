@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BulletSpawner_Alex : MonoBehaviour
 {
+
+    public Ak_Spawn spawnAk;
     public int mag = 12;
     public float Timer;
     public float reloadTime = 2f;
@@ -25,6 +27,7 @@ public class BulletSpawner_Alex : MonoBehaviour
     {
         anime = GetComponent<Animator>();
         rc = GameObject.FindGameObjectWithTag("reticule").GetComponent<ReticuleControl_Alex>();
+        spawnAk = GameObject.FindGameObjectWithTag("Ak_Spawner").GetComponent<Ak_Spawn>();
     }
 
     // Update is called once per frame
@@ -49,6 +52,7 @@ public class BulletSpawner_Alex : MonoBehaviour
                 AKTimer += Time.deltaTime;
                 if(AKTimer >= bigShootTimer)
                 {
+                    spawnAk.usingAk = false;
                     hasAK = false;
                     AKTimer = 0;
                     mag = 12;

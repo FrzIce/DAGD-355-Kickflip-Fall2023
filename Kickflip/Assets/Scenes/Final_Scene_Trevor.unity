@@ -1085,7 +1085,9 @@ MonoBehaviour:
   explosionParticle: {fileID: 6361983446914003956, guid: c4835e13117d20f4b832925276c28794, type: 3}
   potion: {fileID: 0}
   healthPotion: {fileID: 0}
+  bulletSpawn: {fileID: 0}
   spawnPotion: {fileID: 0}
+  spawnAk: {fileID: 0}
   health_Potion: {fileID: 517214306}
   UI: {fileID: 0}
   health: 0
@@ -1338,7 +1340,7 @@ GameObject:
   - component: {fileID: 615073838}
   m_Layer: 0
   m_Name: Virtual Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1792,7 +1794,7 @@ MonoBehaviour:
   cooldown: 5
   Timer: 0
   rc: {fileID: 21385788}
-  bomba: {fileID: 0}
+  bomba: {fileID: 2677589034465835806, guid: 589319ce288c5c64dbcb4b03e9897935, type: 3}
 --- !u!114 &992708375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1805,6 +1807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1c3db708c20aa4fbc13735ad97ff5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnAk: {fileID: 0}
   mag: 12
   Timer: 0
   reloadTime: 2
@@ -2126,6 +2129,54 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1113609923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1113609925}
+  - component: {fileID: 1113609926}
+  m_Layer: 0
+  m_Name: Ak Spawn
+  m_TagString: Ak_Spawner
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1113609925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113609923}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -25.13, y: 6.64, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1113609926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113609923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc82ed4d80940fa40bf1b37ee60a26e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  usingAk: 0
+  onGroundAk: 0
+  Ak: {fileID: 9038471932986009587, guid: a518e8aa287f4144aad54b61ee15e948, type: 3}
 --- !u!1 &1189439023
 GameObject:
   m_ObjectHideFlags: 0
@@ -3447,8 +3498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab7e4c7be7ece645b28c4ed0bca98fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potionAlive: 0
   player: {fileID: 0}
+  potionAlive: 0
   HealthPotion: {fileID: 2742692342797755584, guid: df1292c5f1ce4124983acadd4c973d65, type: 3}
 --- !u!4 &2133680242
 Transform:
@@ -3459,7 +3510,7 @@ Transform:
   m_GameObject: {fileID: 2133680240}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.38, y: 6.72, z: -0.9392698}
+  m_LocalPosition: {x: 5.38, y: 6.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3774,3 +3825,4 @@ SceneRoots:
   - {fileID: 2637389993067634158}
   - {fileID: 1997209870}
   - {fileID: 2133680242}
+  - {fileID: 1113609925}

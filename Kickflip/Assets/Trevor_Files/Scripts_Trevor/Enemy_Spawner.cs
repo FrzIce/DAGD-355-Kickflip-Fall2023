@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_Spawner : MonoBehaviour
 {
-    int enemyType = Random.Range(0, 1);
+    int enemyType;
     float spawnTimer = 5;
 
     public GameObject Enemy_Trevor;
@@ -12,7 +12,7 @@ public class Enemy_Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemyType = Random.Range(0, 1);
     }
 
     // Update is called once per frame
