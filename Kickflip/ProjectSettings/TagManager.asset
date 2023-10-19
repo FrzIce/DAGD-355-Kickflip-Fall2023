@@ -14,11 +14,9 @@ TagManager:
   - Canvas
   - Jump Platform
   - Potion
-  - Bomba
-  - gun
-  - Bullet
-  - reticule
-  - AK
+  - Jump Platform 2
+  - Jump Platform 3
+  - Recall Cooldown
   layers:
   - Default
   - TransparentFX
