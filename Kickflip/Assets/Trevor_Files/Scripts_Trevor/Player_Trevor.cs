@@ -18,8 +18,11 @@ public class Player : MonoBehaviour
     public Animator animator;
     public LogicScript_Trevor logic;
     public GameObject explosionParticle;
+    public potion_Trevor potion;
 
-    public AudioSource potion;
+    public AudioSource health_Potion;
+
+
     public UI_Trevor UI;
 
     private Rigidbody2D rb;
@@ -59,6 +62,7 @@ public class Player : MonoBehaviour
         //calling scripts so we can get codes from other objects - 2
         //recall = GameObject.FindGameObjectWithTag("Recall Collision").GetComponent<RecallCollision_Trevor>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
+        potion = GameObject.FindGameObjectWithTag("Potion").GetComponent<potion_Trevor>();
 
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
@@ -71,7 +75,9 @@ public class Player : MonoBehaviour
         recallCD = 10;
         rb = GetComponent<Rigidbody2D>();
 
-        potion = GetComponent<AudioSource>();
+        health_Potion = GetComponent<AudioSource>();
+
+
 
         //colldown icon
         //textCooldown.gameObject.SetActive(false);
@@ -81,7 +87,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(platform);
+        
         //print(transform.position.x);
         //print(transform.position.y);
         //print(animator.GetFloat("Speed"));
@@ -130,8 +136,8 @@ public class Player : MonoBehaviour
                     recallSet = true;
                     recallReady = false;
                     recallCD = 0;
-                    UI.textCooldown.gameObject.SetActive(true);
-                    UI.textCooldown.text = "Set";
+                    UI.Recall_textCooldown.gameObject.SetActive(true);
+                    UI.Recall_textCooldown.text = "Set";
                 }
                 else if (recallSet == true)
                 {
@@ -174,9 +180,9 @@ public class Player : MonoBehaviour
             }
             else if (recallCD >= 10)
             {
-                recallReady = true;
-                UI.textCooldown.gameObject.SetActive(false);
-                UI.imageCooldown.fillAmount = 0.0f;
+                recallReady = true;                
+                UI.Recall_textCooldown.gameObject.SetActive(false);                                
+                UI.Recall_imageCooldown.fillAmount = 0.0f;
             }
             //print(recallCD); // Debug
         }
@@ -204,9 +210,11 @@ public class Player : MonoBehaviour
     {
         //subtrack time since last called
         recallCD += Time.deltaTime;
-        
-        UI.textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
-        UI.imageCooldown.fillAmount = recallCD / 10f;
+        if(UI.Recall_textCooldown == true)
+        {
+            UI.Recall_textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
+        }        
+        UI.Recall_imageCooldown.fillAmount = recallCD / 10f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -252,12 +260,15 @@ public class Player : MonoBehaviour
             }
             else
             {
-                potion.Play();
+                health_Potion.Play();
+                //potion.play();
                 Destroy(GameObject.FindGameObjectWithTag("Potion"));
                 health += 1;
             }
 
         }
+
+       
 
         //upgraded AI?
 

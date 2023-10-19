@@ -60,7 +60,7 @@ public class BulletSpawner_Alex : MonoBehaviour
         if (Timer <= reloadTime)
         {
             
-            Debug.Log("reloading " + Timer);
+            //Debug.Log("reloading " + Timer);
             Timer += Time.deltaTime;
             if(Timer >= reloadTime && !hasAK)
             {
@@ -70,6 +70,7 @@ public class BulletSpawner_Alex : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && mag != 0 && !hasAK)
         {
+            gun.Play();
             GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             Rigidbody2D rb = newBullet.GetComponent<Rigidbody2D>();
             rb.velocity = (rc.transform.position - transform.position) * bulletSpeed;
@@ -79,7 +80,6 @@ public class BulletSpawner_Alex : MonoBehaviour
                 Timer = 0f;
                 reload.Play();
             }
-            gun.Play();
         } 
 
         if (Input.GetMouseButtonDown(0) && hasAK){

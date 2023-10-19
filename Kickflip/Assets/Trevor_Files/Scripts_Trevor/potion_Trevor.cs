@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class potion_Trevor : MonoBehaviour
 {
-
+    
     public Player player;
     // Start is called before the first frame update
     void Start()
     {
+        
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
@@ -22,4 +23,7 @@ public class potion_Trevor : MonoBehaviour
     {
         
     }
+
+
+    
 }

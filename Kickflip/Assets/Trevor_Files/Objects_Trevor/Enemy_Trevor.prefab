@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3131772857098800199}
   - component: {fileID: 647587204516140740}
   - component: {fileID: 4574592911521311768}
+  - component: {fileID: 6872437957509067280}
   m_Layer: 0
   m_Name: Enemy_Trevor
   m_TagString: Enemy
@@ -147,7 +148,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -158,7 +159,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4574592911521311768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,9 +174,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   animator: {fileID: 0}
-  health: 0
-  jumpForce: 11
-  speed: 3
+  deathParticle: {fileID: 6361983446914003956, guid: c87bce5530f784743a228544ae582b93, type: 3}
+  sfx: {fileID: 0}
+  isFlier: 0
+  health: 2
+  jumpForce: 16
+  flyForce: 10
+  speed: 6
   horizontalMovement: 0
   verticalMovement: 0
   grounded: 0
+  flyAnime: {fileID: 0}
+--- !u!95 &6872437957509067280
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3412054885733727782}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6df555f39760ad244bee22c170f3422d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

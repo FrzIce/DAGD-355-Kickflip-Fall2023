@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
 public class Enemy : MonoBehaviour
 {
     public Player player;
     public Animator animator;
     public GameObject deathParticle;
+    public AudioManage sfx;
 
-    public AudioSource death;
+
+    //public AudioSource death;
 
     public bool isFlier;
     public int health;
@@ -37,10 +38,11 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         animator = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Animator>();
+        sfx = GameObject.FindGameObjectWithTag("Sfx_Manager").GetComponent<AudioManage>();
 
-        health = 2;
+        health = 6;
         rb = GetComponent<Rigidbody2D>();
-        death = GetComponent<AudioSource>();
+        //death = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,10 +51,10 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-            death.Play();
+            sfx.enemyDeath();
             var instance = Instantiate(deathParticle, transform.position, transform.rotation);
             //Destroy(instance.gameObject, 1.0f);
-            Destroy(gameObject);
+            Destroy(transform);
         }
 
         if (player.transform.position.x > transform.position.x && (facingRight))
@@ -116,6 +118,17 @@ public class Enemy : MonoBehaviour
                     if (facingPlayer == false)
                     {
                         Flip();
+                    }
+                }
+                else
+                {
+                    if (player.transform.position.x < transform.position.x)
+                    {
+                        horizontalMovement = speed * -1;
+                    }
+                    else if (player.transform.position.x > transform.position.x)
+                    {
+                        horizontalMovement = speed;
                     }
                 }
 
@@ -229,6 +242,17 @@ public class Enemy : MonoBehaviour
                     }
 
                 }
+                else
+                {
+                    if (player.transform.position.x < transform.position.x)
+                    {
+                        horizontalMovement = speed * -1;
+                    }
+                    else if (player.transform.position.x > transform.position.x)
+                    {
+                        horizontalMovement = speed;
+                    }
+                }
             }
             else if (player.platform == "D")
             {
@@ -310,6 +334,17 @@ public class Enemy : MonoBehaviour
                         }
 
                     }
+                    else
+                    {
+                        if (player.transform.position.x < transform.position.x)
+                        {
+                            horizontalMovement = speed * -1;
+                        }
+                        else if (player.transform.position.x > transform.position.x)
+                        {
+                            horizontalMovement = speed;
+                        }
+                    }
                 }
                 else if (transform.position.x > 6) //enemy moves right not left
                 {
@@ -389,6 +424,30 @@ public class Enemy : MonoBehaviour
                         }
 
                     }
+                    else
+                    {
+                        if (player.transform.position.x < transform.position.x)
+                        {
+                            horizontalMovement = speed * -1;
+                        }
+                        else if (player.transform.position.x > transform.position.x)
+                        {
+                            horizontalMovement = speed;
+                        }
+                    }
+
+                }
+            
+            }
+            else
+            {
+                if (player.transform.position.x < transform.position.x)
+                {
+                    horizontalMovement = speed * -1;
+                }
+                else if (player.transform.position.x > transform.position.x)
+                {
+                    horizontalMovement = speed;
                 }
             }
         }
@@ -441,7 +500,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Recall Collision")
         {
-            health -= 2;
+            health -= 6;
 
         }
         else if (collision.gameObject.tag == "Jump Platform")
@@ -497,8 +556,7 @@ public class Enemy : MonoBehaviour
         }
         if (collision.gameObject.tag == "Bullet")
         {
-            isDead = true;
-            flyAnime.SetBool("isDead", isDead);
+            health -= 2;
         }
 
     }
@@ -507,7 +565,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            death.Play();
+            sfx.enemyDeath();
             var instance = Instantiate(deathParticle, transform.position, transform.rotation);
             //Destroy(instance.gameObject, 1.0f);
             Destroy(gameObject);
@@ -517,10 +575,15 @@ public class Enemy : MonoBehaviour
         {
             platform = "Null";
         }
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            
+        }
     }
 
- 
- 
+    
+
+
 
 
 
