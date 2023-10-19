@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
-
 public class Enemy : MonoBehaviour
 {
     public Player player;
     public Animator animator;
     public GameObject deathParticle;
+    public AudioManage sfx;
+    public Enemy_Spawner eS;
 
-    public AudioSource death;
+
+    //public AudioSource death;
 
     public bool isFlier;
     public int health;
@@ -25,6 +28,11 @@ public class Enemy : MonoBehaviour
     bool jumpPlatform2 = false;
     bool facingPlayer = false;
     bool flip = false;
+    public object o;
+
+
+
+
 
     bool underPlatform = false;
     string platform = "Null";
@@ -37,22 +45,31 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         animator = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Animator>();
+        sfx = GameObject.FindGameObjectWithTag("Sfx_Manager").GetComponent<AudioManage>();
+        eS = GameObject.FindGameObjectWithTag("enemy_Spawner").GetComponent<Enemy_Spawner>();
+        o = eS.obj;
 
-        health = 2;
+
+
+
+
+    health = 6;
         rb = GetComponent<Rigidbody2D>();
-        death = GetComponent<AudioSource>();
+        //death = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
 
         if (health <= 0)
         {
-            death.Play();
+            sfx.enemyDeath();
             var instance = Instantiate(deathParticle, transform.position, transform.rotation);
             //Destroy(instance.gameObject, 1.0f);
             Destroy(gameObject);
+            
         }
 
         if (player.transform.position.x > transform.position.x && (facingRight))
@@ -70,18 +87,8 @@ public class Enemy : MonoBehaviour
 
         if (!isFlier)
         {
-            if (player.platform == "Null")
-            {
-                if (player.transform.position.x < transform.position.x)
-                {
-                    horizontalMovement = speed * -1;
-                }
-                else if (player.transform.position.x > transform.position.x)
-                {
-                    horizontalMovement = speed;
-                }
-            }
-            else if (player.platform == "A")
+            
+            if (player.platform == "A")
             {
                 if (transform.position.x < -7 && transform.position.x > -17 && transform.position.y <= -2)
                 {
@@ -116,6 +123,17 @@ public class Enemy : MonoBehaviour
                     if (facingPlayer == false)
                     {
                         Flip();
+                    }
+                }
+                else
+                {
+                    if (player.transform.position.x < transform.position.x)
+                    {
+                        horizontalMovement = speed * -1;
+                    }
+                    else if (player.transform.position.x > transform.position.x)
+                    {
+                        horizontalMovement = speed;
                     }
                 }
 
@@ -229,6 +247,17 @@ public class Enemy : MonoBehaviour
                     }
 
                 }
+                else
+                {
+                    if (player.transform.position.x < transform.position.x)
+                    {
+                        horizontalMovement = speed * -1;
+                    }
+                    else if (player.transform.position.x > transform.position.x)
+                    {
+                        horizontalMovement = speed;
+                    }
+                }
             }
             else if (player.platform == "D")
             {
@@ -310,6 +339,17 @@ public class Enemy : MonoBehaviour
                         }
 
                     }
+                    else
+                    {
+                        if (player.transform.position.x < transform.position.x)
+                        {
+                            horizontalMovement = speed * -1;
+                        }
+                        else if (player.transform.position.x > transform.position.x)
+                        {
+                            horizontalMovement = speed;
+                        }
+                    }
                 }
                 else if (transform.position.x > 6) //enemy moves right not left
                 {
@@ -389,6 +429,58 @@ public class Enemy : MonoBehaviour
                         }
 
                     }
+                    else
+                    {
+                        if (player.transform.position.x < transform.position.x)
+                        {
+                            horizontalMovement = speed * -1;
+                        }
+                        else if (player.transform.position.x > transform.position.x)
+                        {
+                            horizontalMovement = speed;
+                        }
+                    }
+
+                }
+            
+            }
+            else if (player.transform.position.y < -1 && transform.position.y > -1)
+            {
+                bool downFlip = false;
+                if (downFlip == true && transform.position.x < -1)
+                {
+                    horizontalMovement = speed * -1;
+                }
+                else if (downFlip == true && transform.position.x > 1)
+                {
+                    horizontalMovement = speed;
+                }
+                else if (downFlip == true && transform.position.x > 20 && transform.position.x < -2)
+                {
+                    downFlip = false;
+                }
+                if (transform.position.x < -1)
+                {
+                    horizontalMovement = speed;
+                }
+                else if (transform.position.x > 1)
+                {
+                    horizontalMovement = speed * -1;
+                }
+                else if (transform.position.x < 1&& transform.position.x > -1)
+                {
+                    downFlip = true;
+                }
+            }
+            else
+            {
+                if (player.transform.position.x < transform.position.x)
+                {
+                    horizontalMovement = speed * -1;
+                }
+                else if (player.transform.position.x > transform.position.x)
+                {
+                    horizontalMovement = speed;
                 }
             }
         }
@@ -441,7 +533,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Recall Collision")
         {
-            health -= 2;
+            health -= 6;
 
         }
         else if (collision.gameObject.tag == "Jump Platform")
@@ -497,8 +589,11 @@ public class Enemy : MonoBehaviour
         }
         if (collision.gameObject.tag == "Bullet")
         {
-            isDead = true;
-            flyAnime.SetBool("isDead", isDead);
+            health -= 2;
+        }
+        if (collision.gameObject.tag == "Bomba")
+        {
+            health -= 3;
         }
 
     }
@@ -507,7 +602,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            death.Play();
+            sfx.enemyDeath();
             var instance = Instantiate(deathParticle, transform.position, transform.rotation);
             //Destroy(instance.gameObject, 1.0f);
             Destroy(gameObject);
@@ -517,10 +612,15 @@ public class Enemy : MonoBehaviour
         {
             platform = "Null";
         }
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            
+        }
     }
 
- 
- 
+    
+
+
 
 
 

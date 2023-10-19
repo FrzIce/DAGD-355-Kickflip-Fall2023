@@ -26,7 +26,7 @@ public class BombControl_Alex : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "Recall Cooldown" && collision.gameObject.tag != "gun" && collision.gameObject.tag != "Main Camera") 
         {
             if (!stuck && !offspring)
             {
@@ -40,6 +40,7 @@ public class BombControl_Alex : MonoBehaviour
                 StartCoroutine(DeathSequence());
             }
         }
+        
         
     }
 

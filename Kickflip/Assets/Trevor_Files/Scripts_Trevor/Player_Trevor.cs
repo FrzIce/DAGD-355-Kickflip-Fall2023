@@ -18,8 +18,15 @@ public class Player : MonoBehaviour
     public Animator animator;
     public LogicScript_Trevor logic;
     public GameObject explosionParticle;
+    public potion_Trevor potion;
+    public GameObject healthPotion;
+    public BulletSpawner_Alex bulletSpawn;
 
-    public AudioSource potion;
+    public Potion_Spawns spawnPotion;
+    public Ak_Spawn spawnAk;
+    public AudioSource health_Potion;
+
+
     public UI_Trevor UI;
 
     private Rigidbody2D rb;
@@ -59,6 +66,9 @@ public class Player : MonoBehaviour
         //calling scripts so we can get codes from other objects - 2
         //recall = GameObject.FindGameObjectWithTag("Recall Collision").GetComponent<RecallCollision_Trevor>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
+        spawnPotion = GameObject.FindGameObjectWithTag("potion_Spawner").GetComponent<Potion_Spawns>();
+        spawnAk = GameObject.FindGameObjectWithTag("Ak_Spawner").GetComponent<Ak_Spawn>();
+        bulletSpawn = GameObject.FindGameObjectWithTag("gun").GetComponent<BulletSpawner_Alex>();
 
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
@@ -71,7 +81,9 @@ public class Player : MonoBehaviour
         recallCD = 10;
         rb = GetComponent<Rigidbody2D>();
 
-        potion = GetComponent<AudioSource>();
+        health_Potion = GetComponent<AudioSource>();
+
+
 
         //colldown icon
         //textCooldown.gameObject.SetActive(false);
@@ -81,21 +93,20 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(platform);
+        print("test");
+        
         //print(transform.position.x);
         //print(transform.position.y);
         //print(animator.GetFloat("Speed"));
 
         //Ends Game
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
+        
 
         if (health <= 0) // Checks if player is dead
         {
             alive = false;
             Destroy(gameObject);
+            logic.endGame();
         }
 
         //Movement help
@@ -130,8 +141,8 @@ public class Player : MonoBehaviour
                     recallSet = true;
                     recallReady = false;
                     recallCD = 0;
-                    UI.textCooldown.gameObject.SetActive(true);
-                    UI.textCooldown.text = "Set";
+                    UI.Recall_textCooldown.gameObject.SetActive(true);
+                    UI.Recall_textCooldown.text = "Set";
                 }
                 else if (recallSet == true)
                 {
@@ -174,9 +185,9 @@ public class Player : MonoBehaviour
             }
             else if (recallCD >= 10)
             {
-                recallReady = true;
-                UI.textCooldown.gameObject.SetActive(false);
-                UI.imageCooldown.fillAmount = 0.0f;
+                recallReady = true;                
+                UI.Recall_textCooldown.gameObject.SetActive(false);                                
+                UI.Recall_imageCooldown.fillAmount = 0.0f;
             }
             //print(recallCD); // Debug
         }
@@ -204,9 +215,11 @@ public class Player : MonoBehaviour
     {
         //subtrack time since last called
         recallCD += Time.deltaTime;
-        
-        UI.textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
-        UI.imageCooldown.fillAmount = recallCD / 10f;
+        if(UI.Recall_textCooldown == true)
+        {
+            UI.Recall_textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
+        }        
+        UI.Recall_imageCooldown.fillAmount = recallCD / 10f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -252,12 +265,24 @@ public class Player : MonoBehaviour
             }
             else
             {
-                potion.Play();
-                Destroy(GameObject.FindGameObjectWithTag("Potion"));
+                health_Potion.Play();
+                spawnPotion.potionAlive = false;
+                Destroy(GameObject.FindGameObjectWithTag("Potion"));                
                 health += 1;
+                
             }
 
         }
+
+        if (collision.gameObject.tag == "AK")
+        {
+            Destroy(GameObject.FindGameObjectWithTag("AK"));
+            bulletSpawn.hasAK = true;
+            spawnAk.onGroundAk = false;
+            spawnAk.usingAk = true;
+        }
+
+       
 
         //upgraded AI?
 

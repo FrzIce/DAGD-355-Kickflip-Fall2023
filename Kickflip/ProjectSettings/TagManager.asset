@@ -17,11 +17,20 @@ TagManager:
   - Jump Platform 2
   - Jump Platform 3
   - Recall Cooldown
+  - Bullet
+  - AK
+  - reticule
+  - Bomba
+  - gun
+  - Sfx_Manager
+  - enemy_Spawner
+  - potion_Spawner
+  - Ak_Spawner
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
   - 

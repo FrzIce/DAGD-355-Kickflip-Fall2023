@@ -10,7 +10,7 @@ public class RecallCollision_Trevor : MonoBehaviour
 
     //calling scripts so we can get codes from other objects - 1
     public Player player;
-    public Enemy enemy;
+    //public Enemy enemy;
     public LogicScript_Trevor logic;
     public Animator animator;
 
@@ -24,7 +24,7 @@ public class RecallCollision_Trevor : MonoBehaviour
     {
         //calling scripts so we can get codes from other objects - 2
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
+        //enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript_Trevor>();
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
 

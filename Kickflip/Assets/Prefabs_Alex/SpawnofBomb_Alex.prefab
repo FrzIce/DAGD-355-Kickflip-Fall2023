@@ -183,7 +183,7 @@ MonoBehaviour:
   offsprngSpd: 1
   delay: 2
   bomba_spawn: {fileID: 1200403167314438187}
-  particles: {fileID: 0}
+  particles: {fileID: 1708616181831835230, guid: d34ace114cbcf8b4b98a415fab778028, type: 3}
   bc: {fileID: 2891360447283210371}
 --- !u!1 &1952976089304624036
 GameObject:
