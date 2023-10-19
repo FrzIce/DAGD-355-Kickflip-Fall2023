@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     {
         if (isDead)
         {
-            verticalMovement -= Time.deltaTime;
+            verticalMovement = -1;
             horizontalMovement = 0;
         }
         print(health);
