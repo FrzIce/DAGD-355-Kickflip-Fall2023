@@ -233,7 +233,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Kill Zone")
         {
-            Destroy(gameObject);
+            health = 0;
         }
         else if (collision.gameObject.tag == "Platform")
         {            
