@@ -69,4 +69,27 @@ public class UI_Trevor : MonoBehaviour
         }
         
     }
+
+    public void setRecall() 
+    {
+        Recall_textCooldown.gameObject.SetActive(true);
+        Recall_textCooldown.text = "Set";
+    }
+
+    public void recallReady()
+    {
+        Recall_textCooldown.gameObject.SetActive(false);
+        Recall_imageCooldown.fillAmount = 0.0f;
+    }
+
+    public void ApplyCooldown()
+    {
+        //subtrack time since last called
+        player.recallCD += Time.deltaTime;
+        if (Recall_textCooldown == true)
+        {
+            Recall_textCooldown.text = Mathf.RoundToInt(player.recallCD).ToString();
+        }
+        Recall_imageCooldown.fillAmount = player.recallCD / 10f;
+    }
 }

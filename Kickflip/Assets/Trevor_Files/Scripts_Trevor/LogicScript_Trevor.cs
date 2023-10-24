@@ -47,6 +47,11 @@ public class LogicScript_Trevor : MonoBehaviour
         SceneManager.LoadScene("Game_Over_Menu");
     }
 
+    public void startGame()
+    {
+        SceneManager.LoadScene("Intro_Menu");
+    }
+
     
 
     
