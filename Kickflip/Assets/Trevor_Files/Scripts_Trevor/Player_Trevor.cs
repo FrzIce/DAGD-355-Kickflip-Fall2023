@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-//using UnityEngine.UIElements;
 using UnityEngine.UI;
 using TMPro;
 
@@ -73,7 +72,7 @@ public class Player : MonoBehaviour
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
         
-        UI = GameObject.FindGameObjectWithTag("Recall Cooldown").GetComponent<UI_Trevor>();
+        UI = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UI_Trevor>();
 
         health = maxHealth;
         alive = true;
@@ -148,8 +147,7 @@ public class Player : MonoBehaviour
                     recallSet = true;
                     recallReady = false;
                     recallCD = 0;
-                    UI.Recall_textCooldown.gameObject.SetActive(true);
-                    UI.Recall_textCooldown.text = "Set";
+                    UI.setRecall();
                 }
                 else if (recallSet == true)
                 {
@@ -188,13 +186,12 @@ public class Player : MonoBehaviour
             // Recall Cooldown - will be active when recall is cooling down - 10 sec
             if ((recallCD < 10) && (recallSet == false) && (recallReady == false))
             {
-                ApplyCooldown();
+                UI.ApplyCooldown();
             }
             else if (recallCD >= 10)
             {
-                recallReady = true;                
-                UI.Recall_textCooldown.gameObject.SetActive(false);                                
-                UI.Recall_imageCooldown.fillAmount = 0.0f;
+                recallReady = true;
+                UI.recallReady();
             }
             //print(recallCD); // Debug
         }
@@ -218,16 +215,7 @@ public class Player : MonoBehaviour
         animator.SetBool("Injured", false);
     }
 
-    void ApplyCooldown()
-    {
-        //subtrack time since last called
-        recallCD += Time.deltaTime;
-        if(UI.Recall_textCooldown == true)
-        {
-            UI.Recall_textCooldown.text = Mathf.RoundToInt(recallCD).ToString();
-        }        
-        UI.Recall_imageCooldown.fillAmount = recallCD / 10f;
-    }
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
