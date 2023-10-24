@@ -193,8 +193,8 @@ public class Player : MonoBehaviour
             else if (recallCD >= 10)
             {
                 recallReady = true;                
-                UI.Recall_textCooldown.gameObject.SetActive(false);                                
-                UI.Recall_imageCooldown.fillAmount = 0.0f;
+                //UI.Recall_textCooldown.gameObject.SetActive(false);                                
+               // UI.Recall_imageCooldown.fillAmount = 0.0f;
             }
             //print(recallCD); // Debug
         }

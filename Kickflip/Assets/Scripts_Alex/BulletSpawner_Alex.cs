@@ -15,7 +15,7 @@ public class BulletSpawner_Alex : MonoBehaviour
     public GameObject bullet;
     public ReticuleControl_Alex rc;
     public bool hasAK;
-    public float bulletSpeed = 5f;
+    public float bulletSpeed = 1f;
     private bool holdClick;
     private Animator anime;
 

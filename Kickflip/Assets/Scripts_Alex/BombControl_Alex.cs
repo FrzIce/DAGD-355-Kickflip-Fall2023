@@ -25,9 +25,10 @@ public class BombControl_Alex : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "Recall Cooldown" && collision.gameObject.tag != "gun" && collision.gameObject.tag != "Main Camera") 
+        if ( (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Floor" || collision.gameObject.tag == "Platform")/* &&
+             (collision.gameObject.tag != "Player" && collision.gameObject.tag != "Recall Cooldown" && collision.gameObject.tag != "gun" && collision.gameObject.tag != "Main Camera")*/ )
         {
+
             if (!stuck && !offspring)
             {
                 stuck = true;
@@ -80,13 +81,13 @@ public class BombControl_Alex : MonoBehaviour
             // Create smaller bombs in a burst
             for (int i = 0; i < 10; i++)
             {
-                Instantiate(bomba_spawn, transform.position, Quaternion.identity);
-                Rigidbody2D rb = bomba_spawn.GetComponent<Rigidbody2D>();
-                bc = bomba_spawn.GetComponent<BombControl_Alex>();
+                GameObject obj = Instantiate(bomba_spawn, transform.position, Quaternion.identity);
+                Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+                bc = obj.GetComponent<BombControl_Alex>();
                 bc.offspring = true;
-                Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-                rb.velocity = randomDirection * 20f;
-                rb.angularVelocity = Random.Range(-360f, 360f);
+                Vector2 randomDirection = new Vector2(Random.Range(-15f, 15f), Random.Range(-5f, 5f));
+                rb.velocity = randomDirection * 5f;
+                
             }
         }
         

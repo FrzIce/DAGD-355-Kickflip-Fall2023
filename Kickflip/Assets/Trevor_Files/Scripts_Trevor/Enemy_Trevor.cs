@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.UI;
+//using UnityEditor.UI;
 using UnityEngine;
 public class Enemy : MonoBehaviour
 {
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        animator = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         sfx = GameObject.FindGameObjectWithTag("Sfx_Manager").GetComponent<AudioManage>();
         eS = GameObject.FindGameObjectWithTag("enemy_Spawner").GetComponent<Enemy_Spawner>();
         o = eS.obj;
@@ -598,14 +598,7 @@ public class Enemy : MonoBehaviour
 
             }
         }
-        if (collision.gameObject.tag == "Bullet")
-        {
-            health -= 2;
-        }
-        if (collision.gameObject.tag == "Bomba")
-        {
-            health -= 3;
-        }
+        
 
     }
 
@@ -626,6 +619,15 @@ public class Enemy : MonoBehaviour
         else if (collision.gameObject.tag == "Enemy")
         {
             
+        }
+
+        if (collision.gameObject.tag == "Bullet")
+        {
+            health -= 2;
+        }
+        if (collision.gameObject.tag == "Bomba")
+        {
+            health -= 3;
         }
     }
 

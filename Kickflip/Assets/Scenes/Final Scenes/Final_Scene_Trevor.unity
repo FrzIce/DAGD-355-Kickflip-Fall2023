@@ -1091,7 +1091,7 @@ MonoBehaviour:
   health_Potion: {fileID: 517214306}
   UI: {fileID: 0}
   health: 0
-  maxHealth: 3
+  maxHealth: 10
   alive: 0
   jumpForce: 16
   speed: 8
@@ -1341,7 +1341,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8d9ffaede91e7cd44885c8c86f1d92f0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.057
+  m_Volume: 0.083
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1888,7 +1888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b074ba68efbc2148bfaa892bb25e250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 5
+  cooldown: 1
   Timer: 0
   rc: {fileID: 21385788}
   bomba: {fileID: 2677589034465835806, guid: 589319ce288c5c64dbcb4b03e9897935, type: 3}
@@ -1913,7 +1913,7 @@ MonoBehaviour:
   bullet: {fileID: 316050862142336594, guid: 0021228f10231c441925b22aa0bbcbe7, type: 3}
   rc: {fileID: 21385788}
   hasAK: 0
-  bulletSpeed: 5
+  bulletSpeed: 2.5
   gun: {fileID: 992708377}
   reload: {fileID: 992708376}
   ak: {fileID: 992708378}
@@ -3460,6 +3460,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Platform (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4465617903133631785, guid: a8edbdfab83cb3c40bdd8c57f9e04b3c, type: 3}
+      propertyPath: obj
+      value: 
+      objectReference: {fileID: 3412054885733727782, guid: f21767daa38b0464ebf3e88b43e5dd06, type: 3}
     - target: {fileID: 8675046300584500842, guid: a8edbdfab83cb3c40bdd8c57f9e04b3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33.648003

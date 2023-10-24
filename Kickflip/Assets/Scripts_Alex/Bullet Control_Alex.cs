@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class BulletControl_Alex : MonoBehaviour
 {
-  
-    public int bulletSpeed = 100;
-    public GameObject sprite;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +20,13 @@ public class BulletControl_Alex : MonoBehaviour
 
     }
 
-  
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Destroy(gameObject);
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Floor" || collision.gameObject.tag == "Platform")
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }
 
