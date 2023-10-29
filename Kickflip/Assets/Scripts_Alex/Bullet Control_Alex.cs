@@ -20,12 +20,21 @@ public class BulletControl_Alex : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Floor" || collision.gameObject.tag == "Platform")
         {
             Destroy(gameObject);
         }
+        if (collision.gameObject.tag == "Player")
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
         
     }
 }

@@ -598,8 +598,11 @@ public class Enemy : MonoBehaviour
 
             }
         }
-        
 
+        if (collision.gameObject.tag == "Bullet")
+        {
+            health -= 2;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -621,10 +624,7 @@ public class Enemy : MonoBehaviour
             
         }
 
-        if (collision.gameObject.tag == "Bullet")
-        {
-            health -= 2;
-        }
+        
         if (collision.gameObject.tag == "Bomba")
         {
             health -= 3;
