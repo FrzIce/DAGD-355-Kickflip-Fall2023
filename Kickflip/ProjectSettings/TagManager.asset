@@ -26,6 +26,7 @@ TagManager:
   - enemy_Spawner
   - potion_Spawner
   - Ak_Spawner
+  - Recall_Marker
   layers:
   - Default
   - TransparentFX

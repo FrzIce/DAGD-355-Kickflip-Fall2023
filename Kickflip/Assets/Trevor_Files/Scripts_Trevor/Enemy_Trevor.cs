@@ -508,7 +508,7 @@ public class Enemy : MonoBehaviour
             }
             if (player.transform.position.y < transform.position.y)
             {
-                verticalMovement = -flyForce / 2;
+                verticalMovement = -(flyForce) / 2;
             }
             rb.velocity = new Vector2(horizontalMovement, verticalMovement);
         }

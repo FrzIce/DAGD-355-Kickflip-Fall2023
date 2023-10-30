@@ -22,7 +22,7 @@ public class BulletControl_Alex : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Floor" || collision.gameObject.tag == "Platform")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Floor")
         {
             Destroy(gameObject);
         }

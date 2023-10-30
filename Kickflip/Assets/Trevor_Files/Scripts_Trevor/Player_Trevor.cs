@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public Animator animator;
     public LogicScript_Trevor logic;
     public GameObject explosionParticle;
+    public GameObject recallMarker;
     public potion_Trevor potion;
     public GameObject healthPotion;
     public BulletSpawner_Alex bulletSpawn;
@@ -25,6 +26,9 @@ public class Player : MonoBehaviour
     public Potion_Spawns spawnPotion;
     public Ak_Spawn spawnAk;
     public AudioSource health_Potion;
+    public Recall_Marker_Trevor recall_Marker;
+
+   
 
 
     public UI_Trevor UI;
@@ -73,7 +77,7 @@ public class Player : MonoBehaviour
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
         
-        UI = GameObject.FindGameObjectWithTag("Recall Cooldown").GetComponent<UI_Trevor>();
+        UI = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UI_Trevor>();
 
         health = maxHealth;
         alive = true;
@@ -145,6 +149,7 @@ public class Player : MonoBehaviour
                 if ((recallSet == false) && (recallReady == true))
                 {
                     recallPoint = transform.position;
+                    Instantiate(recallMarker, recallPoint, Quaternion.identity);
                     recallSet = true;
                     recallReady = false;
                     recallCD = 0;

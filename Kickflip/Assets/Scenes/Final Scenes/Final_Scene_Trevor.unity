@@ -796,7 +796,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.2}
+  m_Offset: {x: 0, y: 0.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -866,8 +866,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1083,12 +1083,14 @@ MonoBehaviour:
   animator: {fileID: 517214299}
   logic: {fileID: 0}
   explosionParticle: {fileID: 6361983446914003956, guid: c4835e13117d20f4b832925276c28794, type: 3}
+  recallMarker: {fileID: 8565075622038092900, guid: 3c12ef63ddb983c41b7e4a74187b814b, type: 3}
   potion: {fileID: 0}
   healthPotion: {fileID: 0}
   bulletSpawn: {fileID: 0}
   spawnPotion: {fileID: 0}
   spawnAk: {fileID: 0}
   health_Potion: {fileID: 517214306}
+  recall_Marker: {fileID: 0}
   UI: {fileID: 0}
   health: 0
   maxHealth: 10
