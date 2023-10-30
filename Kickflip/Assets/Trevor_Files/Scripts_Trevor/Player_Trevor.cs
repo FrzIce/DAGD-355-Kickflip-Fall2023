@@ -284,7 +284,14 @@ public class Player : MonoBehaviour
             spawnAk.usingAk = true;
         }
 
-       
+        if (collision.gameObject.tag == "Enemy")
+        {
+            health -= 1;
+            injureTimer = 0;
+            animator.SetBool("Injured", true);
+
+            //rb.velocity = new Vector2(0, rb.velocity.y + 5);
+        }
 
         //upgraded AI?
 

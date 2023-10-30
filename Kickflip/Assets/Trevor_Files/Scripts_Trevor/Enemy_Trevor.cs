@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public GameObject deathParticle;
     public AudioManage sfx;
     public Enemy_Spawner eS;
+    public BoxCollider2D boxCollider;
 
 
     //public AudioSource death;
@@ -48,7 +49,7 @@ public class Enemy : MonoBehaviour
         sfx = GameObject.FindGameObjectWithTag("Sfx_Manager").GetComponent<AudioManage>();
         eS = GameObject.FindGameObjectWithTag("enemy_Spawner").GetComponent<Enemy_Spawner>();
         o = eS.obj;
-
+        boxCollider = GetComponent<BoxCollider2D>();
 
 
 
@@ -488,14 +489,15 @@ public class Enemy : MonoBehaviour
         {
             animator.SetBool("isFlier", true);
             health = 1;
+            boxCollider.isTrigger = true;
 
             if (player.transform.position.x < transform.position.x)
             {
-                horizontalMovement = speed * -1;
+                horizontalMovement = speed * -1.5f;
             }
             else if (player.transform.position.x > transform.position.x)
             {
-                horizontalMovement = speed;
+                horizontalMovement = speed * 1.5f;
             }
 
             if (player.transform.position.y > transform.position.y + 2f)
@@ -560,7 +562,7 @@ public class Enemy : MonoBehaviour
             print("can jump");
             jumpPlatform2 = true;
         }        
-        else if (collision.gameObject.tag == "Platform")
+        else if (collision.gameObject.tag == "Platform" && !isFlier)
         {
             print("Colliding");
             if (transform.position.y <= 6) // Level 1
@@ -602,6 +604,14 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             health -= 2;
+        }
+        if (collision.gameObject.tag == "Player" && isFlier)
+        {
+            sfx.enemyDeath();
+            var instance = Instantiate(deathParticle, transform.position, transform.rotation);
+            //Destroy(instance.gameObject, 1.0f);
+            Destroy(gameObject);
+
         }
     }
 
