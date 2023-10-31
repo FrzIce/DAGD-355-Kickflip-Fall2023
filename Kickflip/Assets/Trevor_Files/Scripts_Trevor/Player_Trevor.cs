@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     public AudioSource health_Potion;
     public Recall_Marker_Trevor recall_Marker;
 
-   
+    public ReticuleControl_Alex rc;
 
 
     public UI_Trevor UI;
@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
         spawnPotion = GameObject.FindGameObjectWithTag("potion_Spawner").GetComponent<Potion_Spawns>();
         spawnAk = GameObject.FindGameObjectWithTag("Ak_Spawner").GetComponent<Ak_Spawn>();
         bulletSpawn = GameObject.FindGameObjectWithTag("gun").GetComponent<BulletSpawner_Alex>();
+        rc = GameObject.FindGameObjectWithTag("reticule").GetComponent<ReticuleControl_Alex>();
 
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         //textCooldown = GetComponent<TextMeshPro>();
@@ -82,7 +83,7 @@ public class Player : MonoBehaviour
         health = maxHealth;
         alive = true;
         recallSet = false;
-        recallCD = 10;
+        recallCD = 0;
         rb = GetComponent<Rigidbody2D>();
 
         health_Potion = GetComponent<AudioSource>();
@@ -137,6 +138,21 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             {
                 animator.SetBool("isAttacking", true);
+                if (transform.position.x < rc.transform.position.x)
+                {
+                    if (!facingRight)
+                    {
+                        Flip();
+                    }
+                }
+                else if (transform.position.x > rc.transform.position.x)
+                {
+                    if (facingRight)
+                    {
+                        Flip();
+                    }
+                }
+                
             }
             if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
             {
@@ -152,9 +168,8 @@ public class Player : MonoBehaviour
                     Instantiate(recallMarker, recallPoint, Quaternion.identity);
                     recallSet = true;
                     recallReady = false;
-                    recallCD = 0;
-                    UI.Recall_textCooldown.gameObject.SetActive(true);
-                    UI.Recall_textCooldown.text = "Set";
+                    recallCD = 10;
+                    UI.setRecall();
                 }
                 else if (recallSet == true)
                 {
@@ -167,6 +182,7 @@ public class Player : MonoBehaviour
                     Instantiate(explosionParticle, transform.position, transform.rotation);
                 }
             }
+            
 
             if (horizontalMovement > 0 && !facingRight)
             {
@@ -191,11 +207,11 @@ public class Player : MonoBehaviour
 
 
             // Recall Cooldown - will be active when recall is cooling down - 10 sec
-            if ((recallCD < 10) && (recallSet == false) && (recallReady == false))
+            if ((recallCD > 0) && (recallSet == false) && (recallReady == false))
             {
                 UI.ApplyCooldown();
             }
-            else if (recallCD >= 10)
+            else if (recallCD <= 0)
             {
                 recallReady = true;
                 UI.recallReady();

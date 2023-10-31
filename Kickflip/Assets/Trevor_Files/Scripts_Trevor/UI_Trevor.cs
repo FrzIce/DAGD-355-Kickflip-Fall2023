@@ -67,6 +67,7 @@ public class UI_Trevor : MonoBehaviour
         {
             ammo_text.text = Mathf.RoundToInt(bulletSpawner.mag).ToString();
         }
+
         
     }
 
@@ -85,7 +86,7 @@ public class UI_Trevor : MonoBehaviour
     public void ApplyCooldown()
     {
         //subtrack time since last called
-        player.recallCD += Time.deltaTime;
+        player.recallCD -= Time.deltaTime;
         if (Recall_textCooldown == true)
         {
             Recall_textCooldown.text = Mathf.RoundToInt(player.recallCD).ToString();
