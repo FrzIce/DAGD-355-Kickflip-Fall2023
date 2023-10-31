@@ -263,11 +263,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5a96317f0a45a448ce3ca19df25351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stuck: 0
   offspring: 0
   offsprngSpd: 0
   delay: 2
   bomba_spawn: {fileID: 1200403167314438187, guid: bb9712f679e00154699ffde8b7d427b0, type: 3}
   particles: {fileID: 1708616181831835230, guid: d34ace114cbcf8b4b98a415fab778028, type: 3}
+  splode: {fileID: 2522137364400444162, guid: a34fa16a6a03e9a46af91582ea7d8025, type: 3}
   bc: {fileID: 0}
 --- !u!1 &8168574627718917837
 GameObject:

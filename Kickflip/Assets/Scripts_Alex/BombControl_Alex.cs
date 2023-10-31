@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class BombControl_Alex : MonoBehaviour
 {
-    private bool stuck;
+    public bool stuck;
     public bool offspring;
     public float offsprngSpd;
     public float delay = 2;
+    
     public GameObject bomba_spawn;
     public GameObject particles;
+    public GameObject splode;
     public BombControl_Alex bc;
+    //public AudioSource splode;
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -31,9 +34,12 @@ public class BombControl_Alex : MonoBehaviour
 
             if (!stuck && !offspring)
             {
+                
+                //splode.Play();
                 stuck = true;
                 Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
                 rb.constraints = RigidbodyConstraints2D.FreezePosition;
+                GameObject sploder = Instantiate(splode, transform.position, Quaternion.identity);
                 StartCoroutine(DeathSequence());
             }
             if (offspring)
@@ -49,7 +55,7 @@ public class BombControl_Alex : MonoBehaviour
     {
         float initialScale = transform.localScale.x;
         float targetScale = 0.5f; // The final scale when it shrinks
-        float timeToShrink = 1.0f; // Time to shrink
+        float timeToShrink = 3f; // Time to shrink
         float timeToExpand = 0.1f; // Time to expand
         float elapsedTime = 0f;
 
@@ -75,6 +81,7 @@ public class BombControl_Alex : MonoBehaviour
         // Destroy this bomb
         Instantiate(particles, transform.position, Quaternion.identity);
         Destroy(gameObject);
+        //ameObject.SetActive(false);
 
         if (!offspring)
         {
